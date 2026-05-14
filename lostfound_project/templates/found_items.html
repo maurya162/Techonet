@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Found Items</title>
+
+<style>
+
+body{
+    background:linear-gradient( to right,#f7ecce,#8fd9f7);
+    font-family:Arial;
+}
+
+/* TOP BAR */
+
+.top-bar{
+    width:90%;
+    margin:30px auto 0;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+    padding:12px 25px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+}
+
+/* CONTAINER */
+
+.container{
+    width:90%;
+    margin:20px auto 40px;
+}
+
+/* CARD GRID */
+
+.card-container{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:20px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:contain;
+    background:#f8fafc;
+}
+
+.card-content{
+    padding:20px;
+}
+
+/* BUTTONS */
+
+.btn-box{
+    margin-top:20px;
+}
+
+.edit-btn,
+.delete-btn{
+    padding:10px 20px;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    margin-right:10px;
+}
+
+.edit-btn{
+    background:#2563eb;
+}
+
+.delete-btn{
+    background:red;
+}
+
+/* =========================
+   MOBILE RESPONSIVE ONLY
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:15px;
+    }
+
+    /* TOP BAR */
+
+    .top-bar{
+
+        width:100%;
+
+        flex-direction:column;
+
+        gap:18px;
+
+        text-align:center;
+
+        margin:20px auto;
+    }
+
+    .top-bar h1{
+
+        font-size:32px;
+
+        line-height:1.3;
+    }
+
+    .back-btn{
+
+        width:180px;
+
+        text-align:center;
+    }
+
+    /* CONTAINER */
+
+    .container{
+
+        width:100%;
+    }
+
+    /* CARD GRID */
+
+    .card-container{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+    }
+
+    /* CARD */
+
+    .card{
+
+        border-radius:14px;
+    }
+
+    .card img{
+
+        height:240px;
+
+        object-fit:contain;
+    }
+
+    .card-content{
+
+        padding:20px;
+    }
+
+    .card-content h2{
+
+        font-size:26px;
+
+        margin-bottom:14px;
+    }
+
+    .card-content p{
+
+        font-size:15px;
+
+        line-height:1.7;
+
+        margin-bottom:10px;
+    }
+
+    /* BUTTON BOX */
+
+    .btn-box{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:12px;
+    }
+
+    .edit-btn,
+    .delete-btn{
+
+        width:100%;
+
+        text-align:center;
+
+        margin-right:0;
+
+        padding:12px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media(max-width:480px){
+
+    .top-bar h1{
+
+        font-size:26px;
+    }
+
+    .card img{
+
+        height:200px;
+    }
+
+    .card-content h2{
+
+        font-size:22px;
+    }
+
+    .card-content p{
+
+        font-size:14px;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+    <h1>
+        Found Items
+    </h1>
+
+    <a href="/dashboard/"
+       class="back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+<div class="container">
+
+    <div class="card-container">
+
+        {% for item in items %}
+
+        <div class="card">
+
+            <img src="{{ item.image.url }}">
+
+            <div class="card-content">
+
+                <h2>{{ item.item_name }}</h2>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ item.category }}
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ item.location }}
+                </p>
+
+                <p>
+                    <strong>Contact:</strong>
+                    {{ item.contact }}
+                </p>
+
+                
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

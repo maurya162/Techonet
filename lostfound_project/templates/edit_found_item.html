@@ -1,0 +1,631 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Edit Found Item</title>
+
+<link rel="stylesheet"
+      href="{% static 'css/style.css' %}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,sans-serif;
+
+    background:
+    linear-gradient(
+    to right,
+    #f7ecce,
+    #8fd9f7
+    );
+
+    min-height:100vh;
+}
+
+/* TOP BAR */
+
+.top-bar{
+
+    width:90%;
+
+    margin:30px auto 0;
+
+    display:flex;
+
+    justify-content:flex-end;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:12px 25px;
+
+    background:#10b981;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 5px 15px rgba(16,185,129,0.3);
+}
+
+.back-btn:hover{
+
+    background:#059669;
+
+    transform:translateY(-2px);
+}
+
+/* FORM CONTAINER */
+
+.form-container{
+
+    width:500px;
+
+    background:white;
+
+    padding:40px;
+
+    margin:20px auto 50px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADING */
+
+.form-container h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#0f172a;
+
+    font-size:35px;
+}
+
+/* FORM GROUP */
+
+.form-group{
+
+    margin-bottom:20px;
+}
+
+/* INPUTS */
+
+.form-group input,
+.form-group textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:0.3s;
+
+    box-sizing:border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+
+    border-color:#10b981;
+
+    box-shadow:
+    0 0 5px rgba(16,185,129,0.3);
+}
+
+/* TEXTAREA */
+
+textarea{
+
+    resize:none;
+
+    height:120px;
+}
+
+/* FILE INPUT */
+
+input[type="file"]{
+
+    background:#f8fafc;
+}
+
+/* BUTTON */
+
+.submit-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#10b981;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+
+    background:#059669;
+
+    transform:translateY(-2px);
+}
+
+/* =========================
+   CUSTOM POPUP
+========================= */
+
+.popup-overlay{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:
+    rgba(15,23,42,0.7);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+    backdrop-filter:blur(5px);
+}
+
+.popup-content{
+
+    width:380px;
+
+    background:white;
+
+    padding:35px 30px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    animation:popupShow 0.3s ease;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
+}
+
+.popup-icon{
+
+    width:80px;
+    height:80px;
+
+    background:#d1fae5;
+
+    color:#10b981;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:38px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+}
+
+.popup-content h2{
+
+    margin-bottom:15px;
+
+    color:#0f172a;
+
+    font-size:30px;
+}
+
+.popup-content p{
+
+    color:#475569;
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    margin-bottom:28px;
+}
+
+.popup-buttons{
+
+    display:flex;
+
+    gap:15px;
+}
+
+.cancel-btn,
+.confirm-btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.cancel-btn{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+}
+
+.cancel-btn:hover{
+
+    background:#cbd5e1;
+}
+
+.confirm-btn{
+
+    background:#10b981;
+
+    color:white;
+}
+
+.confirm-btn:hover{
+
+    background:#059669;
+}
+
+/* POPUP ANIMATION */
+
+@keyframes popupShow{
+
+    from{
+
+        transform:scale(0.8);
+
+        opacity:0;
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:15px;
+    }
+
+    .top-bar{
+
+        width:100%;
+
+        justify-content:center;
+
+        margin:20px auto 10px;
+    }
+
+    .back-btn{
+
+        width:180px;
+
+        text-align:center;
+    }
+
+    .form-container{
+
+        width:100%;
+
+        padding:30px 22px;
+
+        margin:20px auto 40px;
+    }
+
+    .form-container h2{
+
+        font-size:30px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+
+        font-size:15px;
+    }
+
+    .submit-btn{
+
+        font-size:17px;
+    }
+
+    .popup-content{
+
+        width:90%;
+    }
+}
+
+@media(max-width:480px){
+
+    .form-container{
+
+        padding:25px 18px;
+    }
+
+    .form-container h2{
+
+        font-size:26px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+
+        font-size:14px;
+    }
+
+    .submit-btn{
+
+        font-size:16px;
+    }
+
+    .back-btn{
+
+        width:100%;
+    }
+
+    .popup-buttons{
+
+        flex-direction:column;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+    <a href="/profile/"
+       class="back-btn">
+
+       ← Back
+
+    </a>
+
+</div>
+
+<!-- FORM -->
+
+<div class="form-container">
+
+    <h2>
+        Edit Found Item
+    </h2>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          id="updateForm">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+
+            <input type="text"
+                   name="item_name"
+                   value="{{ item.item_name }}"
+                   required>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="text"
+                   name="category"
+                   value="{{ item.category }}"
+                   required>
+
+        </div>
+
+        <div class="form-group">
+
+            <textarea name="description"
+                      required>{{ item.description }}</textarea>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="text"
+                   name="location"
+                   value="{{ item.location }}"
+                   required>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="text"
+                   name="contact"
+                   value="{{ item.contact }}"
+                   required>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="file"
+                   name="image">
+
+        </div>
+
+        <button type="submit"
+                class="submit-btn">
+
+            Update Item
+
+        </button>
+
+    </form>
+
+</div>
+
+<!-- CUSTOM POPUP -->
+
+<div id="popup-box"
+     class="popup-overlay">
+
+    <div class="popup-content">
+
+        <div class="popup-icon">
+            ✓
+        </div>
+
+        <h2>
+            Confirm Update
+        </h2>
+
+        <p>
+            Are you sure you want to update this found item?
+        </p>
+
+        <div class="popup-buttons">
+
+            <button type="button"
+                    onclick="closePopup()"
+                    class="cancel-btn">
+
+                Cancel
+
+            </button>
+
+            <button type="button"
+                    onclick="submitForm()"
+                    class="confirm-btn">
+
+                Yes, Update
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const updateForm =
+document.getElementById(
+    "updateForm"
+);
+
+const popupBox =
+document.getElementById(
+    "popup-box"
+);
+
+/* OPEN POPUP */
+
+updateForm.addEventListener(
+    "submit",
+
+    function(e){
+
+        e.preventDefault();
+
+        popupBox.style.display =
+        "flex";
+    }
+);
+
+/* CLOSE POPUP */
+
+function closePopup(){
+
+    popupBox.style.display =
+    "none";
+}
+
+/* FINAL SUBMIT */
+
+function submitForm(){
+
+    updateForm.submit();
+}
+
+</script>
+
+</body>
+</html>

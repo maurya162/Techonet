@@ -1,0 +1,1307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Profile</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,sans-serif;
+
+    overflow-x:hidden;
+
+    background:linear-gradient(
+        to right,
+        #f7ecce,
+        #8fd9f7
+    );
+
+
+    url("{% static 'images/bg.jpg' %}");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    position:relative;
+}
+
+/* PREMIUM GLOW */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:
+    rgba(56,189,248,0.15);
+
+    border-radius:50%;
+
+    top:-150px;
+    left:-120px;
+
+    filter:blur(90px);
+
+    z-index:0;
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:450px;
+    height:450px;
+
+    background:
+    rgba(37,99,235,0.15);
+
+    border-radius:50%;
+
+    bottom:-150px;
+    right:-100px;
+
+    filter:blur(90px);
+
+    z-index:0;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+
+    width:90%;
+
+    margin:50px auto 80px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* =========================
+   PROFILE HERO
+========================= */
+
+.profile-box{
+
+    background:
+    rgba(15,23,42,0.88);
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(56,189,248,0.15);
+
+    padding:45px;
+
+    border-radius:30px;
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,0.28);
+
+    margin-bottom:50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:white;
+}
+
+.profile-info h1{
+
+    font-size:48px;
+
+    margin-bottom:18px;
+
+    color:#38bdf8;
+
+    font-weight:900;
+}
+
+.profile-info p{
+
+    font-size:20px;
+
+    color:#e2e8f0;
+
+    line-height:1.8;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:15px 30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:14px;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 10px 25px rgba(37,99,235,0.35);
+}
+
+.back-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-4px);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:30px;
+
+    margin-bottom:60px;
+}
+
+.stat-card{
+
+    background:
+    rgba(15,23,42,0.88);
+
+    padding:40px;
+
+    border-radius:26px;
+
+    text-align:center;
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(56,189,248,0.15);
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,0.28);
+
+    transition:0.35s;
+}
+
+.stat-card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 18px 40px rgba(37,99,235,0.35);
+}
+
+.stat-card h2{
+
+    font-size:58px;
+
+    color:#38bdf8;
+
+    margin-bottom:12px;
+
+    font-weight:900;
+}
+
+.stat-card p{
+
+    font-size:22px;
+
+    color:#e2e8f0;
+
+    font-weight:600;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title{
+
+    margin-bottom:30px;
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:900;
+
+    text-shadow:
+    0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   CARD GRID
+========================= */
+
+.card-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+    margin-bottom:70px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+    background:
+    rgba(15,23,42,0.88);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(56,189,248,0.15);
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,0.28);
+
+    transition:0.35s;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 18px 40px rgba(37,99,235,0.35);
+}
+
+/* IMAGE */
+
+.card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:contain;
+
+    background:#0f172a;
+
+    padding:15px;
+}
+
+/* CARD CONTENT */
+
+.card-content{
+
+    padding:28px;
+}
+
+.card-content h3{
+
+    margin-bottom:18px;
+
+    font-size:28px;
+
+    color:#38bdf8;
+
+    font-weight:800;
+}
+
+.card-content p{
+
+    color:#e2e8f0;
+
+    margin-bottom:12px;
+
+    font-size:17px;
+
+    line-height:1.8;
+}
+
+/* BUTTONS */
+
+.edit-btn,
+.delete-btn{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:12px 24px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    margin-right:10px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:0.3s;
+}
+
+.edit-btn{
+
+    background:#2563eb;
+
+    box-shadow:
+    0 8px 20px rgba(37,99,235,0.3);
+}
+
+.edit-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-3px);
+}
+
+.delete-btn{
+
+    background:#ef4444;
+
+    box-shadow:
+    0 8px 20px rgba(239,68,68,0.3);
+}
+
+.delete-btn:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-3px);
+}
+
+/* =========================
+   MESSAGE SECTION
+========================= */
+
+.message-section{
+
+    margin-bottom:70px;
+}
+
+.message-box{
+
+    background:
+    rgba(15,23,42,0.88);
+
+    padding:30px;
+
+    border-radius:24px;
+
+    margin-bottom:25px;
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(56,189,248,0.15);
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,0.28);
+}
+
+.message-box h3{
+
+    color:#38bdf8;
+
+    margin-bottom:15px;
+
+    font-size:28px;
+}
+
+.message-box p{
+
+    color:#e2e8f0;
+
+    margin-bottom:12px;
+
+    font-size:18px;
+}
+
+/* CHAT BUTTON */
+
+.chat-open-btn{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:13px 24px;
+
+    background:#10b981;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 10px 25px rgba(16,185,129,0.3);
+}
+
+.chat-open-btn:hover{
+
+    background:#059669;
+
+    transform:translateY(-3px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .profile-box{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:25px;
+    }
+
+    .profile-info h1{
+
+        font-size:38px;
+    }
+
+    .profile-info p{
+
+        font-size:18px;
+    }
+
+    .section-title{
+
+        font-size:34px;
+    }
+
+    .card-content h3{
+
+        font-size:24px;
+    }
+
+    .card-content p{
+
+        font-size:16px;
+    }
+
+    .stat-card h2{
+
+        font-size:46px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE ONLY
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:15px;
+    }
+
+    /* CONTAINER */
+
+    .container{
+
+        width:100%;
+
+        margin:20px auto 50px;
+    }
+
+    /* PROFILE BOX */
+
+    .profile-box{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:25px;
+
+        padding:30px 22px;
+
+        border-radius:22px;
+    }
+
+    .profile-info h1{
+
+        font-size:34px;
+
+        line-height:1.3;
+    }
+
+    .profile-info p{
+
+        font-size:16px;
+
+        line-height:1.7;
+    }
+
+    .back-btn{
+
+        width:100%;
+
+        text-align:center;
+
+        padding:14px 20px;
+    }
+
+    /* STATS */
+
+    .stats{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+        margin-bottom:45px;
+    }
+
+    .stat-card{
+
+        padding:30px 20px;
+    }
+
+    .stat-card h2{
+
+        font-size:42px;
+    }
+
+    .stat-card p{
+
+        font-size:18px;
+    }
+
+    /* SECTION TITLE */
+
+    .section-title{
+
+        font-size:30px;
+
+        text-align:center;
+
+        margin-bottom:25px;
+
+        line-height:1.3;
+    }
+
+    /* CARD GRID */
+
+    .card-container{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+        margin-bottom:50px;
+    }
+
+    /* CARD */
+
+    .card{
+
+        border-radius:22px;
+    }
+
+    .card img{
+
+        height:230px;
+
+        object-fit:contain;
+    }
+
+    .card-content{
+
+        padding:22px;
+    }
+
+    .card-content h3{
+
+        font-size:24px;
+
+        margin-bottom:15px;
+    }
+
+    .card-content p{
+
+        font-size:15px;
+
+        line-height:1.8;
+    }
+
+    /* BUTTONS */
+
+    .edit-btn,
+    .delete-btn{
+
+        width:100%;
+
+        text-align:center;
+
+        margin-right:0;
+
+        margin-top:12px;
+
+        padding:13px;
+    }
+
+    /* MESSAGE SECTION */
+
+    .message-section{
+
+        margin-bottom:50px;
+    }
+
+    .message-box{
+
+        padding:22px;
+
+        border-radius:20px;
+    }
+
+    .message-box h3{
+
+        font-size:24px;
+    }
+
+    .message-box p{
+
+        font-size:15px;
+
+        line-height:1.7;
+    }
+
+    .chat-open-btn{
+
+        width:100%;
+
+        text-align:center;
+
+        padding:14px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media(max-width:480px){
+
+    .profile-info h1{
+
+        font-size:28px;
+    }
+
+    .profile-info p{
+
+        font-size:14px;
+    }
+
+    .section-title{
+
+        font-size:25px;
+    }
+
+    .card img{
+
+        height:200px;
+    }
+
+    .card-content h3{
+
+        font-size:21px;
+    }
+
+    .card-content p{
+
+        font-size:14px;
+    }
+
+    .stat-card h2{
+
+        font-size:36px;
+    }
+
+    .message-box h3{
+
+        font-size:20px;
+    }
+
+    .message-box p{
+
+        font-size:14px;
+    }
+}
+
+/* =========================
+   DELETE POPUP
+========================= */
+
+.popup-overlay{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:
+    rgba(15,23,42,0.75);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+    backdrop-filter:blur(6px);
+}
+
+.popup-content{
+
+    width:380px;
+
+    background:white;
+
+    padding:35px 30px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    animation:popupShow 0.3s ease;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
+}
+
+.popup-icon{
+
+    width:80px;
+    height:80px;
+
+    background:#fee2e2;
+
+    color:#ef4444;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:38px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+}
+
+.popup-content h2{
+
+    margin-bottom:15px;
+
+    color:#0f172a;
+
+    font-size:30px;
+}
+
+.popup-content p{
+
+    color:#475569;
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    margin-bottom:28px;
+}
+
+.popup-buttons{
+
+    display:flex;
+
+    gap:15px;
+}
+
+.cancel-btn,
+.confirm-btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.cancel-btn{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+}
+
+.confirm-btn{
+
+    background:#ef4444;
+
+    color:white;
+}
+
+.confirm-btn:hover{
+
+    background:#dc2626;
+}
+
+@keyframes popupShow{
+
+    from{
+
+        transform:scale(0.8);
+
+        opacity:0;
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+    }
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PROFILE HERO -->
+
+    <div class="profile-box">
+
+        <div class="profile-info">
+
+            <h1>
+               👤 {{ request.user.username }}
+            </h1>
+
+            <p>
+
+                <strong>📧 Email:</strong>
+
+                {{ request.user.email }}
+
+            </p>
+
+        </div>
+
+        <a href="/dashboard/"
+           class="back-btn">
+
+           ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h2>{{ lost_count }}</h2>
+
+            <p>Lost Items</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>{{ found_count }}</h2>
+
+            <p>Found Items</p>
+
+        </div>
+
+    </div>
+
+    <!-- LOST ITEMS -->
+
+    <h1 class="section-title">
+
+        Your Lost Items
+
+    </h1>
+
+    <div class="card-container">
+
+        {% for item in lost_items %}
+
+        <div class="card">
+
+            <img src="{{ item.image.url }}">
+
+            <div class="card-content">
+
+                <h3>{{ item.item_name }}</h3>
+
+                <p>
+
+                    <strong>Category:</strong>
+
+                    {{ item.category }}
+
+                </p>
+
+                <p>
+
+                    <strong>Location:</strong>
+
+                    {{ item.location }}
+
+                </p>
+
+                <p>
+
+                    <strong>Description:</strong>
+
+                    {{ item.description }}
+
+                </p>
+
+                <p>
+
+                    <strong>Contact:</strong>
+
+                    {{ item.contact }}
+
+                </p>
+
+                <p>
+
+                    <strong>Date:</strong>
+
+                    {{ item.date_lost }}
+
+                </p>
+
+                <a href="{% url 'edit_lost_item' item.id %}"
+                   class="edit-btn">
+
+                   Edit
+
+                </a>
+
+                <a href="#" class="delete-btn"onclick="openDeletePopup('{% url 'delete_lost_item' item.id %}')">
+                 Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- RECENT MESSAGES -->
+
+    <div class="message-section">
+
+        <h1 class="section-title">
+
+            Recent Messages
+
+        </h1>
+
+        {% for room in chat_rooms %}
+
+        <div class="message-box">
+
+            <h3>
+
+                Chat Conversation
+
+            </h3>
+
+            <p>
+
+                {{ room.user1.username }}
+
+                &
+
+                {{ room.user2.username }}
+
+            </p>
+
+            {% if room.user1 == request.user %}
+
+            <a href="{% url 'chat_room' room.user2.id %}"
+               class="chat-open-btn">
+
+               Open Chat
+
+            </a>
+
+            {% else %}
+
+            <a href="{% url 'chat_room' room.user1.id %}"
+               class="chat-open-btn">
+
+               Open Chat
+
+            </a>
+
+            {% endif %}
+
+        </div>
+
+        {% empty %}
+
+        <div class="message-box">
+
+            <p>
+
+                No messages yet.
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- FOUND ITEMS -->
+
+    <h1 class="section-title">
+
+        Your Found Items
+
+    </h1>
+
+    <div class="card-container">
+
+        {% for item in found_items %}
+
+        <div class="card">
+
+            <img src="{{ item.image.url }}">
+
+            <div class="card-content">
+
+                <h3>{{ item.item_name }}</h3>
+
+                <p>
+
+                    <strong>Category:</strong>
+
+                    {{ item.category }}
+
+                </p>
+
+                <p>
+
+                    <strong>Location:</strong>
+
+                    {{ item.location }}
+
+                </p>
+
+                <p>
+
+                    <strong>Description:</strong>
+
+                    {{ item.description }}
+
+                </p>
+
+                <p>
+
+                    <strong>Contact:</strong>
+
+                    {{ item.contact }}
+
+                </p>
+
+                <p>
+
+                    <strong>Date:</strong>
+
+                    {{ item.date_found }}
+
+                </p>
+
+                <a href="{% url 'edit_found_item' item.id %}"
+                   class="edit-btn">
+
+                   Edit
+
+                </a>
+
+                <a href="#" class="delete-btn"onclick="openDeletePopup('{% url 'delete_found_item' item.id %}')">
+
+                   Delete
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+<!-- DELETE POPUP -->
+
+<div id="deletePopup"
+     class="popup-overlay">
+
+    <div class="popup-content">
+
+        <div class="popup-icon">
+            !
+        </div>
+
+        <h2>
+            Confirm Delete
+        </h2>
+
+        <p>
+            Are you sure you want to delete this item?
+        </p>
+
+        <div class="popup-buttons">
+
+            <button onclick="closeDeletePopup()"
+                    class="cancel-btn">
+
+                Cancel
+
+            </button>
+
+            <button onclick="confirmDelete()"
+                    class="confirm-btn">
+
+                Yes, Delete
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let deleteUrl = "";
+
+/* OPEN POPUP */
+
+function openDeletePopup(url){
+
+    deleteUrl = url;
+
+    document.getElementById(
+        "deletePopup"
+    ).style.display = "flex";
+}
+
+/* CLOSE POPUP */
+
+function closeDeletePopup(){
+
+    document.getElementById(
+        "deletePopup"
+    ).style.display = "none";
+}
+
+/* DELETE */
+
+function confirmDelete(){
+
+    window.location.href = deleteUrl;
+}
+
+</script>
+</body>
+</html>

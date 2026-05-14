@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Lost Item Details</title>
+
+<link rel="stylesheet"
+      href="{% static 'css/style.css' %}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#f1f5f9;
+
+    font-family:Arial,sans-serif;
+}
+
+/* TOP BAR */
+
+.top-bar{
+
+    width:80%;
+
+    margin:30px auto 0;
+
+    display:flex;
+
+    justify-content:flex-end;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:12px 25px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 5px 15px rgba(37,99,235,0.3);
+}
+
+.back-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+}
+
+/* CONTAINER */
+
+.container{
+
+    width:80%;
+
+    margin:20px auto 50px;
+}
+
+/* CARD */
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+
+.card img{
+
+    width:100%;
+
+    height:450px;
+
+    object-fit:contain;
+
+    background:#f8fafc;
+}
+
+/* CONTENT */
+
+.content{
+
+    padding:30px;
+}
+
+/* BADGE */
+
+.badge{
+
+    display:inline-block;
+
+    padding:8px 16px;
+
+    background:#ef4444;
+
+    color:white;
+
+    border-radius:30px;
+
+    margin-bottom:20px;
+}
+
+/* TITLE */
+
+.content h1{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+}
+
+/* TEXT */
+
+.content p{
+
+    margin-bottom:15px;
+
+    font-size:18px;
+
+    color:#555;
+}
+
+/* BUTTONS */
+
+.claim-btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:14px 30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    transition:0.3s;
+}
+
+.claim-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+}
+
+/* DELETE */
+
+.delete-btn{
+
+    background:red;
+}
+
+.delete-btn:hover{
+
+    background:#dc2626;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:15px;
+    }
+
+    .top-bar{
+
+        width:100%;
+
+        justify-content:center;
+
+        margin:20px auto 10px;
+    }
+
+    .back-btn{
+
+        width:100%;
+
+        text-align:center;
+    }
+
+    .container{
+
+        width:100%;
+
+        margin:20px auto;
+    }
+
+    .card{
+
+        border-radius:14px;
+    }
+
+    .card img{
+
+        height:280px;
+    }
+
+    .content{
+
+        padding:22px;
+    }
+
+    .content h1{
+
+        font-size:30px;
+
+        line-height:1.3;
+
+        margin-bottom:18px;
+    }
+
+    .content p{
+
+        font-size:16px;
+
+        line-height:1.8;
+    }
+
+    .badge{
+
+        font-size:14px;
+
+        padding:8px 14px;
+    }
+
+    .claim-btn{
+
+        width:100%;
+
+        text-align:center;
+
+        padding:14px 20px;
+
+        font-size:16px;
+
+        margin-top:12px;
+
+        box-sizing:border-box;
+    }
+}
+
+@media(max-width:480px){
+
+    .card img{
+
+        height:220px;
+    }
+
+    .content{
+
+        padding:18px;
+    }
+
+    .content h1{
+
+        font-size:24px;
+    }
+
+    .content p{
+
+        font-size:14px;
+    }
+
+    .claim-btn{
+
+        font-size:15px;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+    <a href="/profile/"
+       class="back-btn">
+
+       ← Back
+
+    </a>
+
+</div>
+
+<!-- DETAILS -->
+
+<div class="container">
+
+    <div class="card">
+
+        <img src="{{ item.image.url }}">
+
+        <div class="content">
+
+            <span class="badge">
+                Lost Item
+            </span>
+
+            <h1>{{ item.item_name }}</h1>
+
+            <p>
+                <strong>Category:</strong>
+                {{ item.category }}
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                {{ item.description }}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                {{ item.location }}
+            </p>
+
+            <p>
+                <strong>Date Lost:</strong>
+                {{ item.date_lost }}
+            </p>
+
+            <p>
+                <strong>Contact:</strong>
+                {{ item.contact }}
+            </p>
+
+            <a href="{% url 'edit_lost_item' item.id %}"
+               class="claim-btn">
+
+               Edit
+
+            </a>
+
+            <a href="{% url 'delete_lost_item' item.id %}"
+               class="claim-btn delete-btn">
+
+               Delete
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

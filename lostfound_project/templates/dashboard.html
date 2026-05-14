@@ -1,0 +1,1323 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet"
+      href="{% static 'css/style.css' %}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial,sans-serif;
+
+    overflow-x:hidden;
+
+    background:
+    linear-gradient(
+    rgba(15,23,42,0.82),
+    rgba(15,23,42,0.82)
+    ),
+
+    url("{% static 'images/bg.jpg' %}");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    position:relative;
+}
+
+/* PREMIUM GLOW */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:
+    rgba(56,189,248,0.15);
+
+    border-radius:50%;
+
+    top:-150px;
+    left:-120px;
+
+    filter:blur(90px);
+
+    z-index:0;
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:450px;
+    height:450px;
+
+    background:
+    rgba(37,99,235,0.15);
+
+    border-radius:50%;
+
+    bottom:-150px;
+    right:-100px;
+
+    filter:blur(90px);
+
+    z-index:0;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+
+    width:100%;
+    height:90px;
+
+    background:
+    linear-gradient(to right,#f7ecce,#8fd9f7);
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 8%;
+
+    position:sticky;
+    top:0;
+
+    z-index:999;
+
+    box-shadow:
+    0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* USER */
+
+.user-box{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left: -80px;
+}
+
+.user-icon{
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+    );
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+    box-shadow:
+    0 4px 12px rgba(37,99,235,0.3);
+}
+
+.user-details{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    margin-left:15px;
+}
+
+.user-details h2{
+
+    font-size:26px;
+
+    color:#0f172a;
+
+    font-weight:800;
+
+    text-transform:capitalize;
+}
+
+.user-details p{
+
+    margin-top:5px;
+
+    color:#475569;
+
+    font-size:14px;
+
+    letter-spacing:1px;
+
+    font-weight:600;
+}
+
+/* NAV LINKS */
+
+nav ul{
+
+    display:flex;
+
+    margin-right: -50px;
+
+    align-items:center;
+
+    gap:10px;
+
+    list-style:none;
+}
+
+nav ul li a{
+
+    text-decoration:none;
+
+    color:#0f172a;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+
+    background:#2563eb;
+
+    color:white;
+}
+
+/* NOTIFICATION */
+
+.notification-box{
+
+    position:relative;
+
+    margin-left:auto;
+
+    margin-right:30px;
+}
+
+.bell-btn{
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,0.1);
+
+    transition:0.3s;
+}
+
+.bell-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#2563eb;
+
+    color:white;
+}
+
+.badge{
+
+    position:absolute;
+
+    top:-5px;
+    right:-5px;
+
+    width:24px;
+    height:24px;
+
+    border-radius:50%;
+
+    background:red;
+
+    color:white;
+
+    font-size:13px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-weight:bold;
+}
+
+/* DROPDOWN */
+
+.notification-dropdown{
+
+    position:absolute;
+
+    top:70px;
+    right:0;
+
+    width:320px;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.12);
+
+    display:none;
+
+    z-index:999;
+}
+
+.notification-dropdown.show{
+    display:block;
+}
+
+.notification-item{
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+    color:#334155;
+
+    font-size:15px;
+}
+
+.notification-item:last-child{
+    border-bottom:none;
+}
+
+/* OPEN CHAT BUTTON */
+
+.open-chat-btn{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:8px 16px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    transition:0.3s;
+}
+
+.open-chat-btn:hover{
+    background:#1d4ed8;
+}
+
+/* SUCCESS POPUP */
+
+.success-popup{
+
+    width:fit-content;
+
+    margin:25px auto;
+
+    background:#10b981;
+
+    color:white;
+
+    padding:15px 35px;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 6px 18px rgba(16,185,129,0.3);
+
+    animation:popupFade 3s ease forwards;
+
+    position:relative;
+
+    z-index:2;
+}
+
+@keyframes popupFade{
+
+    0%{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+
+    10%{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    80%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+
+    width:90%;
+
+    margin:70px auto 90px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.dashboard h1{
+
+    margin-bottom:50px;
+
+    color:white;
+
+    font-size:58px;
+
+    font-weight:900;
+
+    text-align:center;
+
+    text-shadow:
+    0 4px 20px rgba(0,0,0,0.45);
+}
+
+/* CARD SECTION */
+
+.card-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:35px;
+}
+
+.card{
+
+    background:
+    rgba(15,23,42,0.88);
+
+    padding:45px 35px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(56,189,248,0.15);
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,0.28);
+
+    transition:0.35s;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 18px 40px rgba(37,99,235,0.35);
+}
+
+.card h2{
+
+    margin-bottom:22px;
+
+    color:#38bdf8;
+
+    font-size:30px;
+
+    font-weight:800;
+}
+
+.card p{
+
+    color:#e2e8f0;
+
+    font-size:19px;
+
+    margin-bottom:32px;
+
+    line-height:1.8;
+}
+
+.card a{
+
+    display:inline-block;
+
+    padding:14px 34px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 10px 25px rgba(37,99,235,0.35);
+}
+
+.card a:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-4px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:70px 8% 20px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.footer-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:40px;
+
+    margin-bottom:40px;
+}
+
+.footer-logo{
+
+    font-size:32px;
+
+    margin-bottom:20px;
+
+    color:#38bdf8;
+}
+
+.footer-box h3{
+
+    margin-bottom:20px;
+
+    font-size:22px;
+}
+
+.footer-box p{
+
+    color:#cbd5e1;
+
+    line-height:1.8;
+
+    margin-bottom:12px;
+}
+
+.footer-box a{
+
+    display:block;
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    margin-bottom:12px;
+
+    transition:0.3s;
+}
+
+.footer-box a:hover{
+
+    color:#38bdf8;
+
+    padding-left:5px;
+}
+
+.social-icons{
+
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.social-icons a{
+
+    color:white;
+
+    text-decoration:none;
+
+    margin:0 12px;
+
+    font-size:17px;
+
+    transition:0.3s;
+}
+
+.social-icons a:hover{
+    color:#38bdf8;
+}
+
+.copyright{
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    border-top:1px solid #334155;
+
+    padding-top:20px;
+
+    font-size:15px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    nav{
+
+        flex-direction:column;
+
+        height:auto;
+
+        padding:20px;
+    }
+
+    nav ul{
+
+        margin-top:15px;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .dashboard h1{
+
+        font-size:42px;
+    }
+
+    .card{
+
+        padding:35px 25px;
+    }
+
+    .card h2{
+
+        font-size:26px;
+    }
+
+    .card p{
+
+        font-size:17px;
+    }
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE ONLY
+========================= */
+
+@media(max-width:768px){
+
+    /* NAVBAR */
+
+    nav{
+
+        flex-direction:column;
+
+        justify-content:center;
+
+        gap:18px;
+
+        height:auto;
+
+        padding:20px;
+    }
+
+    /* USER BOX */
+
+    .user-box{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        margin-left:0;
+
+        gap:12px;
+    }
+
+    .user-details{
+
+        margin-left:0;
+    }
+
+    .user-details h2{
+
+        font-size:24px;
+    }
+
+    .user-details p{
+
+        font-size:13px;
+    }
+
+    /* NOTIFICATION */
+
+    .notification-box{
+
+        margin:0;
+    }
+
+    .notification-dropdown{
+
+        width:280px;
+
+        right:-80px;
+
+        top:65px;
+    }
+
+    /* NAV LINKS */
+
+    nav ul{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:10px;
+
+        margin-right:0;
+    }
+
+    nav ul li a{
+
+        font-size:15px;
+
+        padding:10px 14px;
+    }
+
+    /* SUCCESS POPUP */
+
+    .success-popup{
+
+        width:90%;
+
+        text-align:center;
+
+        padding:14px 18px;
+
+        font-size:16px;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard{
+
+        width:95%;
+
+        margin:50px auto 70px;
+    }
+
+    .dashboard h1{
+
+        font-size:40px;
+
+        line-height:1.3;
+    }
+
+    /* CARD GRID */
+
+    .card-container{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+    }
+
+    /* CARD */
+
+    .card{
+
+        padding:35px 22px;
+    }
+
+    .card h2{
+
+        font-size:26px;
+    }
+
+    .card p{
+
+        font-size:16px;
+
+        line-height:1.8;
+    }
+
+    .card a{
+
+        width:100%;
+
+        text-align:center;
+    }
+
+    /* FOOTER */
+
+    .footer{
+
+        padding:60px 5% 20px;
+    }
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+    }
+
+    .social-icons{
+
+        display:flex;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media(max-width:480px){
+
+    .dashboard h1{
+
+        font-size:32px;
+    }
+
+    .card h2{
+
+        font-size:23px;
+    }
+
+    .card p{
+
+        font-size:15px;
+    }
+
+    .notification-dropdown{
+
+        width:250px;
+
+        right:-65px;
+    }
+
+    .open-chat-btn{
+
+        width:100%;
+
+        text-align:center;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="user-box">
+
+        <div class="user-icon">
+
+            {{ request.user.username|slice:":1" }}
+
+        </div>
+
+        <div class="user-details">
+
+            <h2>
+                {{ request.user.username }}
+            </h2>
+
+            <p>
+                Welcome Back
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- NOTIFICATION -->
+
+    <div class="notification-box">
+
+        <div class="bell-btn">
+            🔔
+        </div>
+
+        <div class="badge"
+             id="notificationBadge">
+
+            New
+
+        </div>
+
+        <div class="notification-dropdown">
+
+            {% for room in chat_rooms %}
+
+            <div class="notification-item">
+
+                <p>
+
+                    New message from
+
+                    {% if room.user1 == request.user %}
+
+                        {{ room.user2.username }}
+
+                    {% else %}
+
+                        {{ room.user1.username }}
+
+                    {% endif %}
+
+                </p>
+
+                {% if room.user1 == request.user %}
+
+                <a href="{% url 'chat_room' room.user2.id %}"
+                   class="open-chat-btn">
+
+                   Open Chat
+
+                </a>
+
+                {% else %}
+
+                <a href="{% url 'chat_room' room.user1.id %}"
+                   class="open-chat-btn">
+
+                   Open Chat
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+            {% empty %}
+
+            <div class="notification-item no-notification">
+
+                No notifications
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile/">
+                Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout/">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+{% if messages %}
+
+    {% for message in messages %}
+
+    <div class="success-popup">
+
+        {{ message }}
+
+    </div>
+
+    {% endfor %}
+
+{% endif %}
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+    <h1>
+        For You, {{ request.user.username }}
+    </h1>
+
+    <div class="card-container">
+
+        <!-- REPORT LOST -->
+
+        <div class="card">
+
+            <h2>
+                Report Lost Item
+            </h2>
+
+            <p>
+                Submit details about your
+                lost item quickly and safely.
+            </p>
+
+            <a href="{% url 'report_lost' %}">
+                Open
+            </a>
+
+        </div>
+
+        <!-- REPORT FOUND -->
+
+        <div class="card">
+
+            <h2>
+                Report Found Item
+            </h2>
+
+            <p>
+                Found something valuable?
+                Report it here instantly.
+            </p>
+
+            <a href="{% url 'report_found' %}">
+                Open
+            </a>
+
+        </div>
+
+        <!-- VIEW ALL ITEMS -->
+
+        <div class="card">
+
+            <h2>
+                View All Items
+            </h2>
+
+            <p>
+                Browse all reported lost
+                and found items easily.
+            </p>
+
+            <a href="{% url 'all_items' %}">
+                Open
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-box">
+
+            <h2 class="footer-logo">
+                Lost & Found
+            </h2>
+
+            <p>
+                Helping users recover lost
+                items quickly and safely.
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/profile/">
+                Profile
+            </a>
+
+            <a href="/all-items/">
+                All Items
+            </a>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Customer Service
+            </h3>
+
+            <a href="#">
+                Help Center
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <a href="#">
+                Terms & Conditions
+            </a>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Contact
+            </h3>
+
+            <p>📞 +91 9876543210</p>
+
+            <p>📧 support@lostfound.com</p>
+
+            <p>📍 India</p>
+
+        </div>
+
+    </div>
+
+    <div class="social-icons">
+
+        <a href="#">
+            Facebook
+        </a>
+
+        <a href="#">
+            Instagram
+        </a>
+
+        <a href="#">
+            Twitter
+        </a>
+
+    </div>
+
+    <div class="copyright">
+
+        © 2026 Lost & Found System
+
+    </div>
+
+</footer>
+
+<script>
+
+const bellBtn =
+document.querySelector('.bell-btn');
+
+const dropdown =
+document.querySelector(
+'.notification-dropdown'
+);
+
+const badge =
+document.querySelector(
+'#notificationBadge'
+);
+
+let currentCount =
+{{ message_count }};
+
+const noNotification =
+document.querySelector(
+'.no-notification'
+);
+
+if(noNotification){
+    currentCount = 0;
+}
+
+let previousCount =
+localStorage.getItem(
+'messageCount'
+);
+
+if(previousCount === null){
+
+    localStorage.setItem(
+    'messageCount',
+    currentCount
+    );
+
+    badge.style.display = 'none';
+}
+
+else if(
+parseInt(currentCount)
+>
+parseInt(previousCount)
+){
+
+    badge.style.display = 'flex';
+}
+
+else{
+
+    badge.style.display = 'none';
+}
+
+bellBtn.addEventListener(
+'click',
+function(event){
+
+    event.stopPropagation();
+
+    dropdown.classList.toggle(
+    'show'
+    );
+
+    badge.style.display = 'none';
+
+    localStorage.setItem(
+    'messageCount',
+    currentCount
+    );
+});
+
+document.addEventListener(
+'click',
+function(event){
+
+    if(
+    !dropdown.contains(event.target)
+    &&
+    !bellBtn.contains(event.target)
+    ){
+
+        dropdown.classList.remove(
+        'show'
+        );
+    }
+});
+
+</script>
+
+</body>
+</html>
