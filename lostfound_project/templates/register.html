@@ -180,16 +180,27 @@ body{
 .link a:hover{
     text-decoration:underline;
 }
-
 /* =========================
-   MOBILE RESPONSIVE ONLY
+   MOBILE RESPONSIVE
 ========================= */
 
 @media(max-width:768px){
 
+    *{
+        box-sizing:border-box;
+    }
+
     body{
 
         padding:15px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        overflow-x:hidden;
     }
 
     /* TOP BAR */
@@ -198,48 +209,66 @@ body{
 
         width:100%;
 
-        justify-content:center;
+        margin:15px 0;
 
-        margin:20px auto 10px;
+        display:flex;
+
+        justify-content:center;
     }
+
+    /* BACK BUTTON */
 
     .back-btn{
 
-        width:180px;
+        width:160px;
 
         text-align:center;
 
-        padding:12px 20px;
+        padding:12px 18px;
+
+        font-size:15px;
     }
 
-    /* FORM */
+    /* FORM CONTAINER */
 
     .form-container{
 
         width:100%;
 
+        max-width:420px;
+
         padding:30px 22px;
 
-        margin:20px auto 50px;
+        margin:10px auto 40px;
 
-        border-radius:14px;
+        border-radius:16px;
+
+        box-sizing:border-box;
     }
+
+    /* TITLE */
 
     .form-container h2{
 
         font-size:30px;
 
         margin-bottom:22px;
+
+        line-height:1.3;
     }
 
-    /* INPUTS */
+    /* FORM GROUP */
 
     .form-group{
 
         margin-bottom:18px;
     }
 
+    /* INPUTS */
+
     .form-group input{
+
+        width:100%;
 
         padding:14px;
 
@@ -249,6 +278,8 @@ body{
     /* BUTTON */
 
     .submit-btn{
+
+        width:100%;
 
         padding:14px;
 
@@ -261,13 +292,20 @@ body{
 
         font-size:15px;
 
-        line-height:1.7;
+        line-height:1.6;
+
+        text-align:center;
     }
 }
 
 /* EXTRA SMALL DEVICES */
 
 @media(max-width:480px){
+
+    body{
+
+        padding:12px;
+    }
 
     .form-container{
 
@@ -282,11 +320,20 @@ body{
     .form-group input{
 
         font-size:14px;
+
+        padding:13px;
     }
 
     .submit-btn{
 
         font-size:16px;
+    }
+
+    .back-btn{
+
+        width:140px;
+
+        font-size:14px;
     }
 
     .link{
