@@ -92,10 +92,6 @@ def login_user(request):
 
         if user is not None:
 
-            # =========================
-            # ADMIN LOGIN
-            # =========================
-
             if role == "admin":
 
                 if user.is_superuser:
@@ -122,10 +118,6 @@ def login_user(request):
                         }
                     )
 
-            # =========================
-            # USER LOGIN
-            # =========================
-
             else:
 
                 login(request, user)
@@ -134,8 +126,6 @@ def login_user(request):
                     request,
                     "Login Successful!"
                 )
-
-                # REDIRECT TO SAME PAGE
 
                 next_url = request.GET.get(
                     'next'
@@ -147,15 +137,9 @@ def login_user(request):
                         next_url
                     )
 
-                # DEFAULT REDIRECT
-
                 return redirect(
                     'dashboard'
                 )
-
-        # =========================
-        # INVALID LOGIN
-        # =========================
 
         else:
 
@@ -168,10 +152,6 @@ def login_user(request):
                 }
             )
 
-    # =========================
-    # GET REQUEST
-    # =========================
-
     return render(
         request,
         'login.html'
@@ -183,26 +163,46 @@ def login_user(request):
 @login_required(login_url='login')
 def dashboard(request):
 
-    # CHAT NOTIFICATIONS
+    # CHAT ROOMS
 
     chat_rooms = (
+
         ChatRoom.objects.filter(
             user1=request.user
         ) |
+
         ChatRoom.objects.filter(
             user2=request.user
         )
+
     ).exclude(
+
         user1=request.user,
         user2=request.user
     )
-    message_count = Message.objects.exclude(
-    sender=request.user
-    ).count()
+
+    # UNREAD MESSAGE COUNT
+
+    unread_messages = Message.objects.filter(
+        is_read=False
+    ).exclude(
+        sender=request.user
+    ).filter(
+        room__user1=request.user
+    ) | Message.objects.filter(
+        is_read=False
+    ).exclude(
+        sender=request.user
+    ).filter(
+        room__user2=request.user
+    )
+
+    message_count = unread_messages.count()
 
     context = {
 
         'chat_rooms': chat_rooms,
+
         'message_count': message_count,
 
     }
@@ -212,7 +212,6 @@ def dashboard(request):
         'dashboard.html',
         context
     )
-from .models import Message
 
 
 # LOGOUT
@@ -345,12 +344,24 @@ def all_items(request):
 
     found_items = FoundItem.objects.all().order_by('-id')
 
+    requested_items = list(
+
+    Claim.objects.filter(
+        claimant_email=request.user.email
+    ).values_list(
+        'item_name',
+        flat=True
+    )
+
+    )
+
     context = {
 
         'lost_items': lost_items,
 
         'found_items': found_items,
 
+        'requested_items': requested_items,
     }
 
     return render(
@@ -541,6 +552,24 @@ def delete_found_item(request, id):
 @login_required(login_url='login')
 def claim_item(request, item_name):
 
+    lost_item = LostItem.objects.filter(
+        item_name=item_name
+    ).first()
+
+    found_item = FoundItem.objects.filter(
+        item_name=item_name
+    ).first()
+
+    item_owner = None
+
+    if lost_item:
+
+        item_owner = lost_item.user
+
+    elif found_item:
+
+        item_owner = found_item.user
+
     if request.method == 'POST':
 
         claimant_name = request.POST.get(
@@ -560,17 +589,21 @@ def claim_item(request, item_name):
         )
 
         Claim.objects.create(
+
             item_name=item_name,
+
             claimant_name=claimant_name,
+
             claimant_email=claimant_email,
+
             claimant_phone=claimant_phone,
-            message=message
+
+            message=message,
+
+            owner=item_owner
         )
 
-        return render(
-            request,
-            'claim_success.html'
-        )
+        return redirect('all_items')
 
     return render(
         request,
@@ -586,8 +619,6 @@ def claim_item(request, item_name):
 @login_required(login_url='login')
 def profile(request):
 
-    # TOTAL COUNTS
-
     lost_count = LostItem.objects.filter(
         user=request.user
     ).count()
@@ -595,8 +626,6 @@ def profile(request):
     found_count = FoundItem.objects.filter(
         user=request.user
     ).count()
-
-    # USER ITEMS
 
     lost_items = LostItem.objects.filter(
         user=request.user
@@ -606,18 +635,9 @@ def profile(request):
         user=request.user
     ).order_by('-id')
 
-    # RECENT ITEMS
-
-    recent_lost = LostItem.objects.filter(
-        user=request.user
-    ).order_by('-id')[:3]
-
-    recent_found = FoundItem.objects.filter(
-        user=request.user
-    ).order_by('-id')[:3]
-
-    # CHAT ROOMS
-    # SELF CHAT REMOVE
+    claims = Claim.objects.filter(
+        owner=request.user
+    ).order_by('-id')
 
     chat_rooms = (
         ChatRoom.objects.filter(
@@ -626,12 +646,7 @@ def profile(request):
         ChatRoom.objects.filter(
             user2=request.user
         )
-    ).exclude(
-        user1=request.user,
-        user2=request.user
     )
-
-    # CONTEXT
 
     context = {
 
@@ -643,11 +658,9 @@ def profile(request):
 
         'found_items': found_items,
 
-        'recent_lost': recent_lost,
-
-        'recent_found': recent_found,
-
         'chat_rooms': chat_rooms,
+
+        'claims': claims,
     }
 
     return render(
@@ -656,7 +669,8 @@ def profile(request):
         context
     )
 
-    # CHAT ROOM
+
+# CHAT ROOM
 
 @login_required(login_url='login')
 def chat_room(request, user_id):
@@ -665,8 +679,6 @@ def chat_room(request, user_id):
         User,
         id=user_id
     )
-
-    # FIND ROOM
 
     room = ChatRoom.objects.filter(
         user1=request.user,
@@ -680,16 +692,12 @@ def chat_room(request, user_id):
             user2=request.user
         ).first()
 
-    # CREATE ROOM
-
     if not room:
 
         room = ChatRoom.objects.create(
             user1=request.user,
             user2=other_user
         )
-
-    # SEND MESSAGE
 
     if request.method == 'POST':
 
@@ -703,7 +711,15 @@ def chat_room(request, user_id):
                 message=msg
             )
 
-    # ALL MESSAGES
+    # MARK AS READ
+
+    Message.objects.filter(
+        room=room
+    ).exclude(
+        sender=request.user
+    ).update(
+        is_read=True
+    )
 
     messages_list = Message.objects.filter(
         room=room
@@ -717,4 +733,91 @@ def chat_room(request, user_id):
             'messages_list': messages_list,
             'other_user': other_user
         }
+    )
+
+
+# ACCEPT CLAIM
+
+@login_required(login_url='login')
+def accept_claim(request, id):
+
+    claim = get_object_or_404(
+        Claim,
+        id=id
+    )
+
+    lost_item = LostItem.objects.filter(
+        item_name=claim.item_name
+    ).first()
+
+    if lost_item:
+
+        lost_item.claimed = True
+
+        lost_item.save()
+
+    found_item = FoundItem.objects.filter(
+        item_name=claim.item_name
+    ).first()
+
+    if found_item:
+
+        found_item.claimed = True
+
+        found_item.save()
+
+    claim.delete()
+
+    return redirect('profile')
+
+
+# REJECT CLAIM
+
+@login_required(login_url='login')
+def reject_claim(request, id):
+
+    claim = get_object_or_404(
+        Claim,
+        id=id
+    )
+
+    claim.delete()
+
+    return redirect('profile')
+
+
+# DELETE CLAIM
+
+@login_required(login_url='login')
+def delete_claim(request, id):
+
+    claim = get_object_or_404(
+        Claim,
+        id=id
+    )
+
+    claim.delete()
+
+    return redirect('profile')
+
+# DELETE CHAT
+
+@login_required(login_url='login')
+def delete_chat(request, room_id):
+
+    room = get_object_or_404(
+        ChatRoom,
+        id=room_id
+    )
+
+    room.delete()
+
+    return redirect('dashboard')
+
+
+def about(request):
+
+    return render(
+        request,
+        'about.html'
     )

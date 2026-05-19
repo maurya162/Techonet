@@ -136,4 +136,38 @@ urlpatterns = [
         views.chat_room,
         name='chat_room'
     ),
+    path(
+    'delete-chat/<int:room_id>/',
+    views.delete_chat,
+    name='delete_chat'
+    ),
+
+    
+
+    path(
+    'accept-claim/<int:id>/',
+    views.accept_claim,
+    name='accept_claim'
+    ),
+
+    path(
+    'reject-claim/<int:id>/',
+    views.reject_claim,
+    name='reject_claim'
+    ),
+
+    path(
+    'delete-claim/<int:id>/',
+    views.delete_claim,
+    name='delete_claim'
+),
+
+
+path(
+    'about/',
+    views.about,
+    name='about'
+),
+
+    
 ]

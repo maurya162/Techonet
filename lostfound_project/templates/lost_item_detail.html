@@ -367,6 +367,16 @@ body{
                 {{ item.contact }}
             </p>
 
+
+
+            <a href="{% url 'claim_item' item.item_name %}" 
+            class="claim-btn">
+
+                Claim Item
+                
+            </a>
+
+
             <a href="{% url 'edit_lost_item' item.id %}"
                class="claim-btn">
 

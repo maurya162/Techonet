@@ -1,0 +1,271 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        About
+    </title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial;
+    background:
+    linear-gradient(
+    to right,
+    #f7ecce,
+    #8fd9f7
+    );
+}
+
+/* CONTAINER */
+
+.container{
+
+    width:90%;
+    max-width:1000px;
+
+    margin:50px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 0 15px rgba(0,0,0,0.1);
+}
+
+/* HEADING */
+
+h1{
+
+    text-align:center;
+
+    color:#0f172a;
+
+    margin-bottom:30px;
+}
+
+/* SECTION */
+
+.section{
+
+    margin-bottom:35px;
+}
+
+.section h2{
+
+    color:#2563eb;
+
+    margin-bottom:12px;
+}
+
+.section p{
+
+    line-height:1.8;
+
+    color:#334155;
+
+    font-size:16px;
+}
+
+/* LIST */
+
+ul{
+
+    padding-left:20px;
+}
+
+ul li{
+
+    margin-bottom:10px;
+
+    color:#334155;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:12px 25px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    background:#1d4ed8;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .container{
+
+        width:95%;
+
+        padding:25px;
+    }
+
+    h1{
+
+        font-size:30px;
+    }
+
+    .section h2{
+
+        font-size:24px;
+    }
+
+    .section p{
+
+        font-size:15px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        About Smart Lost & Found System
+    </h1>
+
+    <div class="section">
+
+        <h2>
+            Project Introduction
+        </h2>
+
+        <p>
+            Smart Lost & Found System is a web-based application
+            developed to help users report lost items,
+            report found items, communicate with users,
+            and recover belongings efficiently through
+            a centralized digital platform.
+        </p>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Purpose of the System
+        </h2>
+
+        <p>
+            The main purpose of this system is to reduce
+            manual work and improve communication between
+            item owners and finders. The platform provides
+            organized digital management for lost and found items.
+        </p>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Main Features
+        </h2>
+
+        <ul>
+
+            <li>
+                User Registration & Login
+            </li>
+
+            <li>
+                Lost Item Reporting
+            </li>
+
+            <li>
+                Found Item Reporting
+            </li>
+
+            <li>
+                Claim Request System
+            </li>
+
+            <li>
+                Chat Communication
+            </li>
+
+            <li>
+                Notification System
+            </li>
+
+            <li>
+                Responsive Design
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Technologies Used
+        </h2>
+
+        <p>
+            Python, Django, HTML, CSS, JavaScript,
+            and SQLite Database were used to develop
+            this project.
+        </p>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Advantages
+        </h2>
+
+        <p>
+            The system improves communication,
+            reduces paperwork,
+            increases recovery efficiency,
+            and provides secure digital management
+            of lost and found records.
+        </p>
+
+    </div>
+
+    <a href="/"
+       class="back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+</body>
+</html>

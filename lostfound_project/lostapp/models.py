@@ -35,6 +35,10 @@ class LostItem(models.Model):
         upload_to='lost_items/'
     )
 
+    claimed = models.BooleanField(
+    default=False
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -77,6 +81,10 @@ class FoundItem(models.Model):
         upload_to='found_items/'
     )
 
+    claimed = models.BooleanField(
+    default=False
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -87,7 +95,6 @@ class FoundItem(models.Model):
 
 
 # CLAIM MODEL
-
 class Claim(models.Model):
 
     item_name = models.CharField(
@@ -106,13 +113,21 @@ class Claim(models.Model):
 
     message = models.TextField()
 
+    status = models.CharField(
+        max_length=20,
+        default='Requested'
+    )
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )
-
-    def __str__(self):
-
-        return self.claimant_name
 
 
 # CHAT ROOM MODEL
@@ -177,3 +192,7 @@ class Message(models.Model):
     def __str__(self):
 
         return self.sender.username
+    
+    is_read = models.BooleanField(
+    default=False
+    )

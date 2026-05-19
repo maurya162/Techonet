@@ -277,6 +277,43 @@ body{
         padding:18px;
     }
 
+
+    .delete-chat-btn{
+
+    position:absolute;
+
+    right:20px;
+
+    top:15px;
+
+    padding:12px 24px;
+
+    background:#ef4444;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    transition:0.3s ease;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.delete-chat-btn:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 14px rgba(0,0,0,0.2);
+}
+
     /* MESSAGE TEXT */
 
     .message-text{
@@ -370,7 +407,13 @@ body{
 
         </h2>
 
-        <a href="/dashboard/"
+        <a href="{% url 'delete_chat' room.id %}" class="delete-chat-btn">
+
+           Delete Chat
+
+        </a>
+
+        <a href="/all-items/"
            class="back-btn">
 
            ← Back
