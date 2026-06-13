@@ -1,105 +1,23 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
 
-    <title>
-        About
-    </title>
-
-<style>
-
-body{
-    margin:0;
-    padding:0;
-    font-family:Arial;
-    background:
-    linear-gradient(
-    to right,
-    #f7ecce,
-    #8fd9f7
-    );
-}
-
-/* CONTAINER */
-
-.container{
-
+.top-bar{
     width:90%;
-    max-width:1000px;
+    margin:30px auto 0;
 
-    margin:50px auto;
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:20px;
-
-    box-shadow:
-    0 0 15px rgba(0,0,0,0.1);
-}
-
-/* HEADING */
-
-h1{
-
-    text-align:center;
-
-    color:#0f172a;
-
-    margin-bottom:30px;
-}
-
-/* SECTION */
-
-.section{
-
-    margin-bottom:35px;
-}
-
-.section h2{
-
-    color:#2563eb;
-
-    margin-bottom:12px;
-}
-
-.section p{
-
-    line-height:1.8;
-
-    color:#334155;
-
-    font-size:16px;
-}
-
-/* LIST */
-
-ul{
-
-    padding-left:20px;
-}
-
-ul li{
-
-    margin-bottom:10px;
-
-    color:#334155;
+    display:flex;
+    justify-content:flex-end;
 }
 
 /* BACK BUTTON */
 
 .back-btn{
-
-    display:inline-block;
-
-    margin-top:20px;
-
     padding:12px 25px;
 
     background:#2563eb;
@@ -110,153 +28,289 @@ ul li{
 
     border-radius:8px;
 
+    font-size:16px;
+
+    font-weight:bold;
+
     transition:0.3s;
 }
 
 .back-btn:hover{
-
     background:#1d4ed8;
+
+    transform:translateY(-2px);
 }
 
-/* MOBILE */
+body{
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI',sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #f8fafc 0%,
+        #dbeafe 35%,
+        #bfdbfe 70%,
+        #f8fafc 100%
+    );
+
+    min-height:100vh;
+}
+
+/* MAIN HEADING */
+
+.main-heading{
+    text-align:center;
+    padding:70px 20px 30px;
+}
+
+.main-heading h1{
+    font-size:70px;
+    font-weight:900;
+    color:#0f172a;
+    margin-bottom:15px;
+}
+
+.main-heading span{
+    color:#2563eb;
+}
+
+.main-heading p{
+    font-size:22px;
+    color:#64748b;
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+    padding:50px 6%;
+}
+
+.feature-card{
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.4s;
+    border-top:5px solid #2563eb;
+}
+
+.feature-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 20px 40px rgba(37,99,235,.25);
+}
+
+.feature-card h3{
+    color:#2563eb;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.feature-card p{
+    color:#555;
+    line-height:1.8;
+    font-size:18px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    padding:50px 6%;
+}
+
+.stat-card{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+    border-radius:25px;
+    transition:.4s;
+}
+
+.stat-card:hover{
+    transform:scale(1.05);
+}
+
+.stat-card h2{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.stat-card p{
+    font-size:22px;
+    font-weight:600;
+}
+
+/* MISSION & VISION */
+
+.mission{
+    max-width:1200px;
+    margin:50px auto;
+    padding:50px;
+    background:white;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.mission h1{
+    font-size:60px;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.mission p{
+    max-width:900px;
+    margin:auto;
+    font-size:22px;
+    line-height:1.9;
+    color:#475569;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:70px 8% 20px;
+}
+
+.footer-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:40px;
+
+    margin-bottom:40px;
+}
+
+.footer-logo{
+
+    font-size:32px;
+
+    margin-bottom:20px;
+
+    color:#38bdf8;
+}
+
+.footer-box h3{
+
+    margin-bottom:20px;
+
+    font-size:22px;
+}
+
+.footer-box p{
+
+    color:#cbd5e1;
+
+    line-height:1.8;
+
+    margin-bottom:12px;
+}
+
+.footer-box a{
+
+    display:block;
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    margin-bottom:12px;
+
+    transition:0.3s;
+}
+
+.footer-box a:hover{
+
+    color:#38bdf8;
+
+    padding-left:5px;
+}
+
+.social-icons{
+
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.social-icons a{
+
+    color:white;
+
+    text-decoration:none;
+
+    margin:0 12px;
+
+    font-size:17px;
+
+    transition:0.3s;
+}
+
+.social-icons a:hover{
+    color:#38bdf8;
+}
+
+.copyright{
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    border-top:1px solid #334155;
+
+    padding-top:20px;
+
+    font-size:15px;
+}
+
+/* RESPONSIVE */
 
 @media(max-width:768px){
 
-    .container{
-
-        width:95%;
-
-        padding:25px;
+    .main-heading h1{
+        font-size:45px;
     }
 
-    h1{
-
-        font-size:30px;
+    .main-heading p{
+        font-size:18px;
     }
 
-    .section h2{
-
-        font-size:24px;
+    .mission h1{
+        font-size:40px;
     }
 
-    .section p{
+    .mission p{
+        font-size:18px;
+    }
 
-        font-size:15px;
+    .stat-card h2{
+        font-size:45px;
     }
 }
-
-</style>
-
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-
-    <h1>
-        About Smart Lost & Found System
-    </h1>
-
-    <div class="section">
-
-        <h2>
-            Project Introduction
-        </h2>
-
-        <p>
-            Smart Lost & Found System is a web-based application
-            developed to help users report lost items,
-            report found items, communicate with users,
-            and recover belongings efficiently through
-            a centralized digital platform.
-        </p>
-
-    </div>
-
-    <div class="section">
-
-        <h2>
-            Purpose of the System
-        </h2>
-
-        <p>
-            The main purpose of this system is to reduce
-            manual work and improve communication between
-            item owners and finders. The platform provides
-            organized digital management for lost and found items.
-        </p>
-
-    </div>
-
-    <div class="section">
-
-        <h2>
-            Main Features
-        </h2>
-
-        <ul>
-
-            <li>
-                User Registration & Login
-            </li>
-
-            <li>
-                Lost Item Reporting
-            </li>
-
-            <li>
-                Found Item Reporting
-            </li>
-
-            <li>
-                Claim Request System
-            </li>
-
-            <li>
-                Chat Communication
-            </li>
-
-            <li>
-                Notification System
-            </li>
-
-            <li>
-                Responsive Design
-            </li>
-
-        </ul>
-
-    </div>
-
-    <div class="section">
-
-        <h2>
-            Technologies Used
-        </h2>
-
-        <p>
-            Python, Django, HTML, CSS, JavaScript,
-            and SQLite Database were used to develop
-            this project.
-        </p>
-
-    </div>
-
-    <div class="section">
-
-        <h2>
-            Advantages
-        </h2>
-
-        <p>
-            The system improves communication,
-            reduces paperwork,
-            increases recovery efficiency,
-            and provides secure digital management
-            of lost and found records.
-        </p>
-
-    </div>
+    <div class="top-bar">
 
     <a href="/"
        class="back-btn">
@@ -266,6 +320,199 @@ ul li{
     </a>
 
 </div>
+
+    <section class="main-heading">
+
+    <h1>
+        Lost & <span>Found</span> System
+    </h1>
+
+    <p>
+        Recover • Reunite • Return
+    </p>
+
+</section>
+    
+<section class="features">
+
+    <div class="feature-card">
+        <h3>🔍 Lost Item Reporting</h3>
+        <p>
+            Report lost items quickly with detailed descriptions and images.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>⚡ Fast Item Recovery</h3>
+        <p>
+            Find matching lost and found items through a centralized platform.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>🔒 Secure Verification</h3>
+        <p>
+            Secure claim verification process to prevent false ownership claims.
+        </p>
+    </div>
+
+</section>
+
+<section class="stats">
+
+    <div class="stat-card">
+        <h2>10K+</h2>
+        <p>Active Users</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>5K+</h2>
+        <p>Recovered Items</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>4.8 ★</h2>
+        <p>User Rating</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>24/7</h2>
+        <p>Platform Availability</p>
+    </div>
+
+</section>
+
+<section class="mission">
+
+    <h1>Our Mission</h1>
+
+    <p>
+        To provide a secure, efficient, and user-friendly platform that helps people recover lost belongings quickly while building trust between finders and owners. Our goal is to reduce the stress of losing valuable items by creating a reliable digital solution.
+    </p>
+
+</section>
+
+<section class="mission">
+
+    <h1>Our Vision</h1>
+
+    <p>
+        To become the most trusted Lost & Found platform by leveraging technology, transparency, and community participation to reconnect people with their valuable belongings across the world.
+    </p>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-box">
+
+            <h2 class="footer-logo">
+                Lost & Found
+            </h2>
+
+            <p>
+                Helping users recover lost
+                items quickly and safely.
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="/">Home</a>
+
+            <a href="/lost-items/">
+                Lost Items
+            </a>
+
+            <a href="/found-items/">
+                Found Items
+            </a>
+
+            <a href="/login/">
+                Login
+            </a>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Customer Service
+            </h3>
+
+            <a href="#">
+                Help Center
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <a href="#">
+                Terms & Conditions
+            </a>
+
+            <a href="#">
+                Report Problem
+            </a>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+                Contact
+            </h3>
+
+            <p>📞 +91 9876543210</p>
+
+            <p>📧 support@lostfound.com</p>
+
+            <p>📍 India</p>
+
+        </div>
+
+    </div>
+
+    <div class="social-icons">
+
+        <a href="#">
+            Facebook
+        </a>
+
+        <a href="#">
+            Instagram
+        </a>
+
+        <a href="#">
+            Twitter
+        </a>
+
+        <a href="#">
+            GitHub
+        </a>
+
+    </div>
+
+    <div class="copyright">
+
+        © 2026 Lost & Found System
+        | All Rights Reserved
+
+    </div>
+
+</footer>
+
+
 
 </body>
 </html>

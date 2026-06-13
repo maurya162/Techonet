@@ -12,12 +12,25 @@
 <style>
 
 body{
-     background:linear-gradient(to right, #f7ecce, #8fd9f7);
 
-     font-family:Arial;
+    background:
+    linear-gradient(
+        rgba(15,23,42,0.60),
+        rgba(15,23,42,0.60)
+    ),
+    url("{% static 'images/registerimg.png' %}");
 
-     margin:0;
-     padding:0;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    font-family:Arial;
+
+    margin:0;
+    padding:0;
+
+    min-height:100vh;
 }
 
 /* TOP BAR */
@@ -62,7 +75,13 @@ body{
 
     width:400px;
 
-    background:white;
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(15px);
+
+    -webkit-backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.2);
 
     padding:40px;
 
@@ -70,7 +89,7 @@ body{
 
     border-radius:15px;
 
-    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
 .form-container h2{
@@ -79,7 +98,7 @@ body{
 
     margin-bottom:25px;
 
-    color:#0f172a;
+    color:white;
 
     font-size:35px;
 }
@@ -94,24 +113,51 @@ body{
 
     padding:14px;
 
-    border:1px solid #ccc;
+    background:rgba(255,255,255,0.12);
 
-    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.25);
+
+    border-radius:10px;
 
     font-size:16px;
+
+    color:white;
 
     box-sizing:border-box;
 
     outline:none;
 
     transition:0.3s;
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
+}
+
+.form-group input::placeholder{
+
+    color:rgba(255,255,255,0.8);
 }
 
 .form-group input:focus{
 
-    border-color:#2563eb;
+    border-color:#38bdf8;
 
-    box-shadow:0 0 5px rgba(37,99,235,0.3);
+    box-shadow:0 0 12px rgba(56,189,248,0.5);
+
+    background:rgba(255,255,255,0.18);
+}
+
+.error{
+    color:#ff6b6b;
+}
+
+.link{
+    color:white;
+}
+
+.link a{
+    color:#38bdf8;
 }
 
 /* BUTTON */
@@ -388,6 +434,14 @@ body{
             <input type="email"
                    name="email"
                    placeholder="Email"
+                   required>
+
+        </div>
+        <div class="form-group">
+
+            <input type="number"
+                   name="Mobile No."
+                   placeholder="Mobile No."
                    required>
 
         </div>
